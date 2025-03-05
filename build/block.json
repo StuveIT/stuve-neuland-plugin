@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "stuve-neuland/kachel",
+  "version": "0.1.0",
+  "title": "Kachel",
+  "category": "widgets",
+  "description": "Display important information in colored blocks",
+  "example": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "source": "attribute"
+    },
+    "type": {
+      "type": "string",
+      "source": "attribute"
+    },
+    "target": {
+      "type": "string",
+      "source": "attribute",
+      "default": "_blank"
+    }
+  },
+  "supports": {
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "html": false,
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "textdomain": "kachel",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}
