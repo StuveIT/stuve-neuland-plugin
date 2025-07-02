@@ -19,7 +19,9 @@ import { useMemo } from 'react';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { InnerBlocks, BlockControls, useBlockProps, InspectorControls, LinkControl } from '@wordpress/block-editor';
-import { PanelBody, PanelRow, ToolbarGroup } from '@wordpress/components';
+import { PanelBody, PanelRow, Popover, Toolbar, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { link } from '@wordpress/icons';
+import { useState } from '@wordpress/element';
 
 import './editor.scss';
 
@@ -61,26 +63,52 @@ export default function Edit({ attributes, setAttributes }) {
     target: value.opensInNewTab ? '_blank' : ''
   });
 
+  const removeValue = () => setAttributes({
+    url: undefined,
+    type: undefined,
+    target: undefined
+  });
+
+  const [ isEditingURL, setIsEditingURL ] = useState( false );
+  const [ popoverAnchor, setPopoverAnchor ] = useState( null );
+
   return (
     <>
       <InspectorControls>
-        <PanelBody title='Link' className="full-width-control-wrapper">
-          <PanelRow>
-            <LinkControl
-              settings={[{
-                id: 'opensInNewTab',
-                title: 'Open in new tab',
-              }]}
-              value={memorizedValue}
-              onChange={changeValue}
-              width="80px"
-            />
-          </PanelRow>
-        </PanelBody>
       </InspectorControls>
       <BlockControls>
-        <ToolbarGroup>
-        </ToolbarGroup>
+        <Toolbar>
+          <ToolbarButton
+            title='Link'
+            icon={ link }
+            ref={ setPopoverAnchor }
+            onClick={ () => setIsEditingURL( true ) }
+            isActive={
+              !! attributes.url ||
+              isEditingURL
+            }
+          />
+          { isEditingURL && (
+            <Popover
+              anchor={ popoverAnchor }
+              onClose={ () => setIsEditingURL( false ) }
+              placement="bottom"
+              focusOnMount={ true }
+              offset={ 12 }
+            >
+              <LinkControl
+                settings={[{
+                  id: 'opensInNewTab',
+                  title: 'Open in new tab',
+                }]}
+                value={memorizedValue}
+                onChange={changeValue}
+                onRemove={removeValue}
+                showInitialSuggestions={ true }
+              />
+            </Popover>
+          ) }
+        </Toolbar>
       </BlockControls>
       <p {...useBlockProps()}>
         <InnerBlocks template={BLOCKS_TEMPLATE} templateLock={false} />
