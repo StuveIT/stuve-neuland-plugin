@@ -66,7 +66,7 @@ export default function Edit({ attributes, setAttributes }) {
   const removeValue = () => setAttributes({
     url: undefined,
     type: undefined,
-    target: undefined
+    target: '_blank'
   });
 
   const [ isEditingURL, setIsEditingURL ] = useState( false );

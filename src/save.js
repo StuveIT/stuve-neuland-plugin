@@ -19,5 +19,9 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
-  return <a href={attributes.url} target={attributes.target} {...useBlockProps.save()}><InnerBlocks.Content /></a>;
+  const blockProps = useBlockProps.save();
+  console.log(attributes);
+  let kachelURL = "";
+  if(typeof attributes.url !== 'undefined') kachelURL = attributes.url;
+  return <a href={kachelURL} target={attributes.target} {...blockProps}><InnerBlocks.Content /></a>;
 }
