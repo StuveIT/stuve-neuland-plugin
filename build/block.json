@@ -10,11 +10,14 @@
   "attributes": {
     "url": {
       "type": "string",
-      "source": "attribute"
+      "source": "attribute",
+      "attribute": "href",
+      "selector": "a"
     },
     "type": {
       "type": "string",
-      "source": "attribute"
+      "source": "attribute",
+      "selector": "a"
     },
     "target": {
       "type": "string",

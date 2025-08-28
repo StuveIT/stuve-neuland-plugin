@@ -43,7 +43,9 @@ const BLOCKS_TEMPLATE = [
  */
 export default function Edit({ attributes, setAttributes }) {
 
-  const memorizedValue = useMemo(
+  console.log( attributes );
+
+  /* const memorizedValue = useMemo(
     () => ({
       url: attributes.url,
       type: attributes.type,
@@ -55,13 +57,17 @@ export default function Edit({ attributes, setAttributes }) {
       attributes.type,
       attributes.target
     ]
-  );
+  ); */
+  const memorizedValue = attributes;
 
-  const changeValue = (value) => setAttributes({
+  // console.log( attributes.url );
+
+  const changeValue = (value) => {
+    setAttributes({
     url: value.url,
     type: value.type,
     target: value.opensInNewTab ? '_blank' : ''
-  });
+  })};
 
   const removeValue = () => setAttributes({
     url: undefined,
